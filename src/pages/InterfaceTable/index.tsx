@@ -10,12 +10,18 @@ import '@umijs/max';
 import {Button, Drawer, Input, message} from 'antd';
 import React, {useRef, useState} from 'react';
 import {
-  addInterfaceInfoUsingPost, deleteInterfaceInfoUsingPost,
+  addInterfaceInfoUsingPost, deleteInterfaceInfoUsingPost, interfaceOfflineUsingPost, interfaceOnlineUsingPost,
   listInterfaceInfoByPageUsingGet, updateInterfaceInfoUsingPost
 } from "@/services/apiBackend/interfaceInfoController";
 import {SortOrder} from "antd/lib/table/interface";
 import CreateModal from "@/pages/InterfaceTable/components/CreateModal";
 import UpdateModal from "@/pages/InterfaceTable/components/UpdateModal";
+
+interface InterfaceDataProps {
+    params: any,
+    sort: Record<string, SortOrder>,
+    filter: Record<string, (string | number)[] | null>
+}
 
 const InterfaceInfoTable: React.FC = () =>
 {
@@ -117,6 +123,99 @@ const InterfaceInfoTable: React.FC = () =>
   };
 
 
+  const fetchData = async (params: InterfaceDataProps) =>
+  {
+      const response: any = await listInterfaceInfoByPageUsingGet({...params});
+      if (response.data)
+      {
+        const dataNode = {
+            data: response?.data.records,
+            success: true,
+            total: response.data.total
+        }
+        dataNode ? message.success("获取接口信息成功!!!") : message.error("获取接口信息失败!!!")
+        return dataNode;
+        // return
+      }
+      else
+      {
+        message.error("获取接口信息失败!!!")
+        return {
+          data: [],
+          success: false,
+          total: 0
+        }
+      }
+  }
+
+  /**
+    * 处理给接口上线事件
+    * @param interfaceId 接口id
+    * @author Caixypromise
+    * @date 2023-12-15
+  **/
+  const handleOnline = async (interfaceId: string) =>
+  {
+    if (interfaceId === '')
+    {
+      message.error("无效的下线接口!!!")
+      return;
+    }
+    try {
+      const response = await interfaceOnlineUsingPost({
+        id : interfaceId
+      })
+      if (response.data) {
+        actionRef.current?.reload();
+        message.success("上线成功!!!");
+        return;
+      }
+      else {
+        message.error("上线失败!!!");
+      }
+    }
+    catch (error)
+    {
+      message.error("上线失败: " + error);
+    }
+  }
+
+
+  /**
+   * 处理给接口下线事件
+   * @param interfaceId 接口id
+   * @author Caixypromise
+   * @date 2023-12-15
+   **/
+  const handleOffline = async (interfaceId: string) =>
+  {
+    if (interfaceId === '')
+    {
+      message.error("无效的下线接口!!!")
+      return;
+    }
+
+    try {
+      const response = await interfaceOfflineUsingPost({
+        id : String(interfaceId)
+      })
+      if (response.data) {
+        actionRef.current?.reload();
+        message.success("下线成功!!!");
+        return;
+      }
+      else {
+        message.error("下线失败!!!");
+      }
+    }
+    catch (error)
+    {
+      message.error("下线失败: " + error);
+    }
+  }
+
+
+
   const columns: ProColumns<API.InterfaceInfo>[] = [
 
     {
@@ -183,22 +282,6 @@ const InterfaceInfoTable: React.FC = () =>
       valueType: 'text',
     },
     {
-      title: '状态',
-      dataIndex: 'status',
-      valueType: 'select',
-      hideInForm: true,
-      valueEnum: {
-        0: {
-          text: '关闭',
-          status: 'Default',
-        },
-        1: {
-          text: '开启',
-          status: 'Processing',
-        },
-      },
-    },
-    {
       title: '创建时间',
       dataIndex: 'createTime',
       valueType: 'dateTime',
@@ -215,15 +298,38 @@ const InterfaceInfoTable: React.FC = () =>
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => [
-          <a
-              key="config"
-              onClick={() => {
-                  handleUpdateModalOpen(true);
-                  setCurrentRow(record);
-              }}
-          >
-              修改
-          </a>,
+
+          <Button
+            type="text"
+            key="modify"
+            onClick={() => {
+              handleUpdateModalOpen(true);
+              setCurrentRow(record);
+            }}
+          >修改</Button>
+        ,
+         record.status === 1 ?
+          <Button
+            type="text"
+            danger={true}
+            onClick={() =>
+          {
+            handleOffline(record?.id || '');
+
+          }}
+          >下线</Button> :
+
+          <Button
+            type="text"
+            // danger={true}
+            onClick={() =>
+            {
+              handleOnline(record?.id || '');
+
+            }}
+          >上线</Button>
+        ,
+
           <Button
               type="text"
               key="config"
@@ -241,7 +347,7 @@ const InterfaceInfoTable: React.FC = () =>
   return (
     <PageContainer>
       <ProTable<API.RuleListItem, API.PageParams>
-        headerTitle={'查询表格'}
+        headerTitle={'接口管理信息表格'}
         actionRef={actionRef}
         rowKey="key"
         search={{
@@ -259,28 +365,7 @@ const InterfaceInfoTable: React.FC = () =>
             <PlusOutlined/> 新建
           </Button>,
         ]}
-        request={async (params: any,
-                        sort: Record<string, SortOrder>,
-                        filter: Record<string, (string | number)[] | null>) =>
-        {
-          const response: any = await listInterfaceInfoByPageUsingGet({...params});
-          if (response.data)
-          {
-            return {
-              data: response?.data.records,
-              success: true,
-              total: response.data.total
-            }
-          }
-          else
-          {
-            return {
-              data: [],
-              success: false,
-              total: 0
-            }
-          }
-        }}
+        request={fetchData}
 
         columns={columns}
         rowSelection={{

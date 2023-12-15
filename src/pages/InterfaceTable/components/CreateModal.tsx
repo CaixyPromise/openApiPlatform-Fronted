@@ -1,7 +1,7 @@
-import type { ProColumns } from '@ant-design/pro-components';
-import { ProTable } from '@ant-design/pro-components';
+import type {ProColumns} from '@ant-design/pro-components';
+import {ProTable} from '@ant-design/pro-components';
 import '@umijs/max';
-import { Modal } from 'antd';
+import {Modal} from 'antd';
 import React from 'react';
 
 export type Props = {
@@ -18,7 +18,8 @@ const CreateModal: React.FC<Props> = (props) =>
       <ProTable
         columns={columns}
         type="form"
-        onSubmit={async (values) => {
+        onSubmit={async (values) =>
+        {
           return onSubmit?.(values)
         }}
       />
