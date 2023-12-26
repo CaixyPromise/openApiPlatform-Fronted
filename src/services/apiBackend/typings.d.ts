@@ -122,6 +122,11 @@ declare namespace API {
     url?: string;
   };
 
+  type InterfaceInfoInvokeRequest = {
+    id?: string;
+    userRequestParams?: string;
+  };
+
   type InterfaceInfoOffLineRequest = {
     id?: string;
   };

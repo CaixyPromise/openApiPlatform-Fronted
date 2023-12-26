@@ -1,7 +1,7 @@
 import {PageContainer} from '@ant-design/pro-components';
 import {useModel} from '@umijs/max';
 import {Card, List, message, Skeleton, theme} from 'antd';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {listInterfaceInfoByPageUsingGet} from "@/services/apiBackend/interfaceInfoController";
 import {err} from "pino-std-serializers";
 
@@ -15,37 +15,35 @@ const Index: React.FC = () =>
   const loadData = async (current: number = 1, pageSize: number = 5) =>
   {
     setLoading(true);
-    try
-    {
+    try {
       const params: API.listInterfaceInfoByPageUsingGETParams = {
         current: String(current),
         pageSize: String(pageSize)
       }
       const response: API.BaseResponsePageInterfaceInfo = await listInterfaceInfoByPageUsingGet(params)
-      if (response.data)
-      {
+      if (response.data) {
         setDataList(response.data?.records || []);
         // @ts-ignore
         setTotal(response.data?.total || 0);
         console.log("get data");
-
+        message.success("请求成功");
       }
-    } catch (error)
-    {
+    }
+    catch (error) {
       message.error("请求失败" + error)
     }
     setLoading(false);
   }
+
   useEffect(() =>
   {
-    loadData();
+    loadData()
   }, [])
 
   return (
     <PageContainer title={"Api开放平台"}>
       <List
         header="Api开放平台接口信息"
-
         className="demo-loadmore-list"
         loading={loading}
         itemLayout="horizontal"

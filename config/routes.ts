@@ -1,7 +1,6 @@
 export default [
   {
     path: '/user',
-    layout: false,
     routes: [{ name: '登录', path: '/user/login', component: './User/Login' }],
   },
   { path: '/interface/:id', name: '查看接口', icon: 'smile', component: './Interface', hideInMenu: true },
