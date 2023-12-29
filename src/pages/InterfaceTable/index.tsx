@@ -430,31 +430,6 @@ const InterfaceInfoTable: React.FC = () =>
         open={updateModalOpen}
         initialValue={currentRow || {}}
       />
-      {/*<UpdateForm*/}
-      {/*  onSubmit={async (value) =>*/}
-      {/*  {*/}
-      {/*    const success = await handleUpdate(value);*/}
-      {/*    if (success)*/}
-      {/*    {*/}
-      {/*      handleUpdateModalOpen(false);*/}
-      {/*      setCurrentRow(undefined);*/}
-      {/*      if (actionRef.current)*/}
-      {/*      {*/}
-      {/*        actionRef.current.reload();*/}
-      {/*      }*/}
-      {/*    }*/}
-      {/*  }}*/}
-      {/*  onCancel={() =>*/}
-      {/*  {*/}
-      {/*    handleUpdateModalOpen(false);*/}
-      {/*    if (!showDetail)*/}
-      {/*    {*/}
-      {/*      setCurrentRow(undefined);*/}
-      {/*    }*/}
-      {/*  }}*/}
-      {/*  updateModalOpen={updateModalOpen}*/}
-      {/*  values={currentRow || {}}*/}
-      {/*/>*/}
 
       <Drawer
         width={600}

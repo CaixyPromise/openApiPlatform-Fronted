@@ -104,7 +104,7 @@ declare namespace API {
     method?: string;
     name?: string;
     requestHeader?: string;
-    requestParams?: string;
+    requestPayload?: string;
     responseHeader?: string;
     status?: number;
     updateTime?: string;
@@ -117,14 +117,14 @@ declare namespace API {
     method?: string;
     name?: string;
     requestHeader?: string;
-    requestParams?: string;
+    requestPayload?: string;
     responseHeader?: string;
     url?: string;
   };
 
   type InterfaceInfoInvokeRequest = {
     id?: string;
-    userRequestParams?: string;
+    userRequestPayload?: string;
   };
 
   type InterfaceInfoOffLineRequest = {
@@ -141,7 +141,7 @@ declare namespace API {
     method?: string;
     name?: string;
     requestHeader?: string;
-    requestParams?: string;
+    requestPayload?: string;
     responseHeader?: string;
     status?: number;
     url?: string;
@@ -155,7 +155,7 @@ declare namespace API {
     name?: string;
     pageSize?: string;
     requestHeader?: string;
-    requestParams?: string;
+    requestPayload?: string;
     responseHeader?: string;
     sortField?: string;
     sortOrder?: string;
@@ -172,7 +172,7 @@ declare namespace API {
     name?: string;
     pageSize?: string;
     requestHeader?: string;
-    requestParams?: string;
+    requestPayload?: string;
     responseHeader?: string;
     sortField?: string;
     sortOrder?: string;
