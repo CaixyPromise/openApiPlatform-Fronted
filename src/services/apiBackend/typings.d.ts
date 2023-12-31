@@ -17,6 +17,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListInterfaceInvokeCountVO = {
+    code?: number;
+    data?: InterfaceInvokeCountVO[];
+    message?: string;
+  };
+
   type BaseResponseListPost = {
     code?: number;
     data?: Post[];
@@ -67,7 +73,7 @@ declare namespace API {
 
   type BaseResponseUser = {
     code?: number;
-    data?: User;
+    data?: UserVO;
     message?: string;
   };
 
@@ -145,6 +151,25 @@ declare namespace API {
     responseHeader?: string;
     status?: number;
     url?: string;
+  };
+
+  type InterfaceInvokeCountVO = {
+    createTime?: string;
+    description?: string;
+    failNum?: number;
+    id?: string;
+    isDelete?: number;
+    method?: string;
+    name?: string;
+    requestHeader?: string;
+    requestPayload?: string;
+    responseHeader?: string;
+    status?: number;
+    successNum?: number;
+    totalNum?: number;
+    updateTime?: string;
+    url?: string;
+    userId?: string;
   };
 
   type listInterfaceInfoByPageUsingGETParams = {

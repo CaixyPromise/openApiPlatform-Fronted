@@ -5,10 +5,12 @@
 import * as basicErrorController from './basicErrorController';
 import * as interfaceInfoController from './interfaceInfoController';
 import * as postController from './postController';
+import * as rankController from './rankController';
 import * as userController from './userController';
 export default {
   basicErrorController,
   interfaceInfoController,
   postController,
+  rankController,
   userController,
 };

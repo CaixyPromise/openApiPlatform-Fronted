@@ -12,6 +12,7 @@ const Index: React.FC = () =>
   const [loading, setLoading] = useState(false);
   const [dataList, setDataList] = useState<API.InterfaceInfo[]>([]);
   const [total, setTotal] = useState<number>(0);
+  console.log("initialData is: ", initialState)
   const loadData = async (current: number = 1, pageSize: number = 5) =>
   {
     setLoading(true);

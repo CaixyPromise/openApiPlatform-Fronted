@@ -14,8 +14,8 @@ import {
   listInterfaceInfoByPageUsingGet, updateInterfaceInfoUsingPost
 } from "@/services/apiBackend/interfaceInfoController";
 import {SortOrder} from "antd/lib/table/interface";
-import CreateModal from "@/pages/InterfaceTable/components/CreateModal";
-import UpdateModal from "@/pages/InterfaceTable/components/UpdateModal";
+import CreateModal from "@/pages/Admin/InterfaceTable/components/CreateModal";
+import UpdateModal from "@/pages/Admin/InterfaceTable/components/UpdateModal";
 
 interface InterfaceDataProps {
     params: any,

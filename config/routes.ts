@@ -20,7 +20,8 @@ export default [
     routes: [
       // { path: '/admin', redirect: '/admin/sub-page' },
       // { path: '/admin/sub-page', name: '二级管理页', component: './Admin' },
-      { name: '所有接口信息', icon: 'table', path: '/admin/interface', component: './InterfaceTable' },
+      { name: '所有接口信息', icon: 'table', path: '/admin/interface', component: './Admin/InterfaceTable' },
+      { name: '接口调用分析', icon: 'analysis', path: '/admin/analysis', component: './Admin/InterfaceAnalysis' },
 
     ],
   },

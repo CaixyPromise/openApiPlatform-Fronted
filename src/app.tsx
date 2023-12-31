@@ -23,7 +23,7 @@ export async function getInitialState(): Promise<InitialState>
         const response: API.BaseResponseUserVO = await getLoginUserUsingGet();
         if (response.data)
         {
-            userState.loginUser = response.data;
+            userState.currentUser = response.data;
         }
     } catch (error)
     {
@@ -38,7 +38,7 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) =>
     return {
         actionsRender: () => [<Question key="doc"/>],
         avatarProps: {
-            src: initialState?.loginUser?.userAvatar,
+            src: initialState?.currentUser?.userAvatar,
             title: <AvatarName/>,
             render: (_, avatarChildren) =>
             {
@@ -46,14 +46,14 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) =>
             },
         },
         waterMarkProps: {
-            content: initialState?.loginUser?.userName,
+            content: initialState?.currentUser?.userName,
         },
         footerRender: () => <Footer/>,
         onPageChange: () =>
         {
             const {location} = history;
             // 如果没有登录，重定向到 login
-            if (!initialState?.loginUser && location.pathname !== loginPath)
+            if (!initialState?.currentUser && location.pathname !== loginPath)
             {
                 history.push(loginPath);
             }
