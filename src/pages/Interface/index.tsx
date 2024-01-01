@@ -96,6 +96,7 @@ import {
     tryToInterfaceInvokeUsingPost
 } from "@/services/apiBackend/interfaceInfoController";
 import { useParams } from '@@/exports';
+import {flushSync} from "react-dom";
 
 /**
  * 主页
@@ -130,7 +131,10 @@ const Index: React.FC = () =>
                 const payloadArray = Object
                     .entries(JSON.parse(res.data.requestPayload))
                     .map(([key, value]) => ({ key, value }));
-                setPayloadFields(payloadArray);
+                await flushSync(async () =>
+                {
+                    await setPayloadFields(payloadArray);
+                })
             }
 
         } catch (error: any) {

@@ -71,12 +71,6 @@ declare namespace API {
     message?: string;
   };
 
-  type BaseResponseUser = {
-    code?: number;
-    data?: UserVO;
-    message?: string;
-  };
-
   type BaseResponseUserVO = {
     code?: number;
     data?: UserVO;
@@ -440,21 +434,6 @@ declare namespace API {
     reviewStatus?: number;
   };
 
-  type User = {
-    accessKey?: string;
-    createTime?: string;
-    gender?: number;
-    id?: string;
-    isDelete?: number;
-    secretKey?: string;
-    updateTime?: string;
-    userAccount?: string;
-    userAvatar?: string;
-    userName?: string;
-    userPassword?: string;
-    userRole?: string;
-  };
-
   type UserAddRequest = {
     gender?: number;
     userAccount?: string;
@@ -465,6 +444,8 @@ declare namespace API {
   };
 
   type UserLoginRequest = {
+    // nonce?: string;
+    // timestamp?: string;
     userAccount?: string;
     userPassword?: string;
   };
@@ -486,9 +467,11 @@ declare namespace API {
   };
 
   type UserVO = {
+    accessKey?: string;
     createTime?: string;
     gender?: number;
     id?: string;
+    secretKey?: string;
     updateTime?: string;
     userAccount?: string;
     userAvatar?: string;

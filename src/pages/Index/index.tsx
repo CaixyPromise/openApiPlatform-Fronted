@@ -1,9 +1,8 @@
 import {PageContainer} from '@ant-design/pro-components';
 import {useModel} from '@umijs/max';
-import {Card, List, message, Skeleton, theme} from 'antd';
-import React, {useEffect, useMemo, useState} from 'react';
+import { List, message, theme} from 'antd';
+import React, {useEffect, useState} from 'react';
 import {listInterfaceInfoByPageUsingGet} from "@/services/apiBackend/interfaceInfoController";
-import {err} from "pino-std-serializers";
 
 const Index: React.FC = () =>
 {
@@ -42,42 +41,44 @@ const Index: React.FC = () =>
   }, [])
 
   return (
-    <PageContainer title={"Api开放平台"}>
-      <List
-        header="Api开放平台接口信息"
-        className="demo-loadmore-list"
-        loading={loading}
-        itemLayout="horizontal"
-        dataSource={dataList}
-        renderItem={(item) => {
-          return (
-            <List.Item
-              actions={[<a key="list-loadmore-more" href={`/interface/${item.id}`}>查看</a>]}
-            >
-              <List.Item.Meta
-                  title={<a href={`/interface/${item.id}`}>{item.name}</a>}
-                  description={item.description}
-              />
-            </List.Item>
-          )
-        }}
-        pagination= {
-          {
-            showTotal(total: number)
-            {
-              return '总数：' + total;
-            },
+    <>
+      <PageContainer title={"Api开放平台"}>
+        <List
+            header="Api开放平台接口信息"
+            className="demo-loadmore-list"
+            loading={loading}
+            itemLayout="horizontal"
+            dataSource={dataList}
+            renderItem={(item) => {
+              return (
+                  <List.Item
+                      actions={[<a key="list-loadmore-more" href={`/interface/${item.id}`}>查看</a>]}
+                  >
+                    <List.Item.Meta
+                        title={<a href={`/interface/${item.id}`}>{item.name}</a>}
+                        description={item.description}
+                    />
+                  </List.Item>
+              )
+            }}
+            pagination= {
+              {
+                showTotal(total: number)
+                {
+                  return '总数：' + total;
+                },
 
-            onChange(page, pageSize)
-            {
-              loadData(page, pageSize);
-            },
-            pageSize: 10,
-            total,
-          }
-        }
-      />
-    </PageContainer>
+                onChange(page, pageSize)
+                {
+                  loadData(page, pageSize);
+                },
+                pageSize: 10,
+                total,
+              }
+            }
+        />
+      </PageContainer>
+    </>
   );
 };
 

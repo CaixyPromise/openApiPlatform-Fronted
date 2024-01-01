@@ -7,6 +7,7 @@ import type {RunTimeLayoutConfig} from '@umijs/max';
 import {history, Link} from '@umijs/max';
 import {AvatarDropdown, AvatarName} from './components/RightContent/AvatarDropdown';
 import {requestConfig} from './requestErrorConfig';
+import defaultSettings from "../config/defaultSettings";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -24,6 +25,7 @@ export async function getInitialState(): Promise<InitialState>
         if (response.data)
         {
             userState.currentUser = response.data;
+            userState.settings = defaultSettings;
         }
     } catch (error)
     {
@@ -37,7 +39,8 @@ export const layout: RunTimeLayoutConfig = ({initialState, setInitialState}) =>
 {
     return {
         actionsRender: () => [<Question key="doc"/>],
-        avatarProps: {
+        avatarProps:
+            {
             src: initialState?.currentUser?.userAvatar,
             title: <AvatarName/>,
             render: (_, avatarChildren) =>

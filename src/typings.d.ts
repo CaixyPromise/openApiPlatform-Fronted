@@ -18,8 +18,15 @@ declare module 'react-fittext';
 declare module 'bizcharts-plugin-slider';
 
 declare const REACT_APP_ENV: 'test' | 'dev' | 'pre' | false;
-
+interface EncryptPackage {
+  nonce : string;
+  timestamp: string;
+  encryptedPassword: string;
+  library: string;
+  dict: string;
+}
 
 interface InitialState {
   currentUser?: API.UserVO,
+  settings?: Partial<LayoutSettings>
 }
