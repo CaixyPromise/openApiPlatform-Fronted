@@ -5,6 +5,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseCaptchaVO = {
+    code?: number;
+    data?: CaptchaVO;
+    message?: string;
+  };
+
   type BaseResponseInterfaceInfo = {
     code?: number;
     data?: InterfaceInfo;
@@ -71,10 +77,21 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseSignatureVO = {
+    code?: number;
+    data?: SignatureVO;
+    message?: string;
+  };
+
   type BaseResponseUserVO = {
     code?: number;
     data?: UserVO;
     message?: string;
+  };
+
+  type CaptchaVO = {
+    codeImage?: string;
+    uuid?: string;
   };
 
   type DeleteRequest = {
@@ -84,6 +101,10 @@ declare namespace API {
   type getInterfaceInfoByIdUsingGETParams = {
     /** id */
     id?: string;
+  };
+
+  type getModifyLicenseUsingPOSTParams = {
+    password?: string;
   };
 
   type getPostByIdUsingGETParams = {
@@ -434,6 +455,17 @@ declare namespace API {
     reviewStatus?: number;
   };
 
+  type SignatureVO = {
+    signature?: string;
+  };
+
+  type updateKeyUsingGETParams = {
+    /** token */
+    token: string;
+    /** name */
+    name: string;
+  };
+
   type UserAddRequest = {
     gender?: number;
     userAccount?: string;
@@ -444,8 +476,8 @@ declare namespace API {
   };
 
   type UserLoginRequest = {
-    // nonce?: string;
-    // timestamp?: string;
+    captcha?: string;
+    captchaId?: string;
     userAccount?: string;
     userPassword?: string;
   };
@@ -457,8 +489,11 @@ declare namespace API {
   };
 
   type UserUpdateRequest = {
+    accessKey?: string;
     gender?: number;
     id?: string;
+    secretKey?: string;
+    token?: string;
     userAccount?: string;
     userAvatar?: string;
     userName?: string;

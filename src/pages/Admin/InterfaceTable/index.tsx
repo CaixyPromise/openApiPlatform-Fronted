@@ -16,6 +16,7 @@ import {
 import {SortOrder} from "antd/lib/table/interface";
 import CreateModal from "@/pages/Admin/InterfaceTable/components/CreateModal";
 import UpdateModal from "@/pages/Admin/InterfaceTable/components/UpdateModal";
+import {InterfaceInfoModalFormColumns} from "@/pages/Admin/InterfaceTable/columns/InterfaceInfoColumns";
 
 interface InterfaceDataProps {
     params: any,
@@ -409,10 +410,11 @@ const InterfaceInfoTable: React.FC = () =>
         </FooterToolbar>
       )}
       <CreateModal
-        columns={columns}
+        columns={InterfaceInfoModalFormColumns}
         onCancel={() => {handleModalOpen(false)}}
         onSubmit={handleAdd}
         open={createModalOpen}
+
       />
       <UpdateModal
         columns={columns}

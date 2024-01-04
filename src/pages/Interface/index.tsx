@@ -88,7 +88,7 @@
 // export default InterfaceDetails;
 
 
-import { PageContainer } from '@ant-design/pro-components';
+import {EditableProTable, PageContainer} from '@ant-design/pro-components';
 import React, { useEffect, useState } from 'react';
 import {Button, Card, Descriptions, Form, message, Input, Spin, Divider} from 'antd';
 import {
@@ -97,6 +97,13 @@ import {
 } from "@/services/apiBackend/interfaceInfoController";
 import { useParams } from '@@/exports';
 import {flushSync} from "react-dom";
+import ParamsTable from "@/components/ParamsTable";
+import {
+    defaultNewResponseColumn,
+    InterfaceInfoModalFormColumns, requestParam
+} from "@/pages/Admin/InterfaceTable/columns/InterfaceInfoColumns";
+
+
 
 /**
  * 主页
@@ -212,32 +219,12 @@ const Index: React.FC = () =>
                     {payloadFields && (
                         <>
                             <Divider orientation="left">{data?.method === "GET" ? "请求参数" : "请求Body"}</Divider>
-                            {
-                                payloadFields.map((field, index) => (
-                                    <React.Fragment key={index}>
-                                        <Form.Item>
-                                            <Input.Group compact>
-                                                <Form.Item
-                                                    name={['Fields', index, 'key']}
-                                                    initialValue={field.key}
-                                                    noStyle
-                                                >
-                                                    <Input style={{ width: 'calc(15% - 8px)', marginRight: 8 }} placeholder="参数名称" />
-                                                </Form.Item>
-                                                <Form.Item
-                                                    name={['Fields', index, 'value']}
-                                                    initialValue={field.value}
-                                                    noStyle
-                                                >
-                                                    <Input style={{ width: '30%' , }} placeholder="参数值" />
-                                                </Form.Item>
-                                            </Input.Group>
-                                        </Form.Item>
-                                    </React.Fragment>
-                                ))
-                            }
-                            <Button onClick={addPayloadField}>+ 添加字段</Button>
-                            <Divider />
+                            <ParamsTable
+                                column={requestParam}
+                                defaultNewColumn={{
+                                "fieldName": "",
+                                "value": ''
+                            }}/>
                         </>
                     )}
                     <Form.Item>

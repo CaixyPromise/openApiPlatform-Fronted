@@ -13,19 +13,18 @@ import {
     ProFormCheckbox,
     ProFormText,
 } from '@ant-design/pro-components';
-import { Button, Divider, Space, Tabs, message, theme } from 'antd';
-import type { CSSProperties } from 'react';
-import React, { useState } from 'react';
+import {Button, Divider, Space, Tabs, message, theme} from 'antd';
+import type {CSSProperties} from 'react';
+import React, {useEffect, useState} from 'react';
 import {flushSync} from "react-dom";
 import {userLoginUsingPost} from "@/services/apiBackend/userController";
 import {useEmotionCss} from "@ant-design/use-emotion-css";
 import {useModel} from "@umijs/max";
 import {history} from "umi";
+import {getCodeUsingGet} from "@/services/apiBackend/captchaController";
 
 
-
-
-const Page : React.FC = () =>
+const Page: React.FC = () =>
 {
     type LoginType = 'phone' | 'account';
     const iconStyles: CSSProperties = {
@@ -34,17 +33,24 @@ const Page : React.FC = () =>
         verticalAlign: 'middle',
         cursor: 'pointer',
     };
-    interface LoginForm {
+
+    interface LoginForm
+    {
         username: string,
         password: string,
+        captcha: string,
         autoLogin?: boolean
     }
+    const [captchaId, setCaptchaId] = useState<string>('');
+    const [captcha, setCaptcha] = useState<string>('');
     const [loginType, setLoginType] = useState<LoginType>('account');
-    const { token } = theme.useToken();
+    const {token} = theme.useToken();
     const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
     const [type, setType] = useState<string>('account');
-    const { initialState, refresh, setInitialState } = useModel('@@initialState');
-    const containerClassName = useEmotionCss(() => {
+    const {initialState, refresh, setInitialState} = useModel('@@initialState');
+
+    const containerClassName = useEmotionCss(() =>
+    {
         return {
             display: 'flex',
             flexDirection: 'column',
@@ -55,40 +61,62 @@ const Page : React.FC = () =>
             backgroundSize: '100% 100%',
         };
     });
-    const handleSubmit = async (values: LoginForm) => {
+    // 请求验证码的函数
+    const fetchCaptcha = async () =>
+    {
         try {
+            // 发送请求到后端获取验证码
+            const response: API.BaseResponseCaptchaVO = await getCodeUsingGet();
+            if (response.data)
+            {
+                const data = response.data;
+                console.log(data)
+                // 处理返回的验证码数据
+                // @ts-ignore
+                setCaptcha(data?.codeImage || ""); // 存储Base64编码的图像
+                setCaptchaId(data?.uuid || "")     // 存储图像验证码的id
+            }
+        }
+        catch (e) {
+            message.error('获取验证码失败, 请点击重新刷新');
+        }
+    };
+    const handleSubmit = async (values: LoginForm) =>
+    {
+        try
+        {
             console.log(values)
-            // 登录
+            // 处理登录逻辑
             const msg = await userLoginUsingPost({
-                userPassword : values.password,
-                userAccount: values.username
+                userPassword: values.password,
+                userAccount: values.username,
+                captcha: values.captcha,
+                captchaId: captchaId
             });
             if (msg.data)
             {
-
                 // 使用 flushSync 同步更新 initialState
                 await flushSync(async () =>
                 {
                     await setInitialState((s) => ({...s, currentUser: msg.data}));
                 });
-
                 // 重定向到主页或指定页面
                 const urlParams = new URL(window.location.href).searchParams;
                 history.push(urlParams.get('redirect') || '/');
                 return;
             }
             // 如果失败去设置用户错误信息
-        } catch (error) {
+        } catch (error)
+        {
             const defaultLoginFailureMessage = '登录失败，请重试！';
-            // setUserLoginState({
-            //     status: 'error',
-            //     type: type,
-            //     currentAuthority: 'error',
-            // })
             console.log(error);
+            fetchCaptcha();
             message.error(defaultLoginFailureMessage);
         }
     };
+    useEffect(() => {
+        fetchCaptcha();
+    }, [])
     // const { status, type: loginType } = userLoginState;
     return (
         <div style={{
@@ -163,7 +191,7 @@ const Page : React.FC = () =>
                                     borderRadius: '50%',
                                 }}
                             >
-                                <AlipayOutlined style={{ ...iconStyles, color: '#1677FF' }} />
+                                <AlipayOutlined style={{...iconStyles, color: '#1677FF'}}/>
                             </div>
                             <div
                                 style={{
@@ -177,7 +205,7 @@ const Page : React.FC = () =>
                                     borderRadius: '50%',
                                 }}
                             >
-                                <TaobaoOutlined style={{ ...iconStyles, color: '#FF6A10' }} />
+                                <TaobaoOutlined style={{...iconStyles, color: '#FF6A10'}}/>
                             </div>
                             <div
                                 style={{
@@ -191,7 +219,7 @@ const Page : React.FC = () =>
                                     borderRadius: '50%',
                                 }}
                             >
-                                <WeiboOutlined style={{ ...iconStyles, color: '#1890ff' }} />
+                                <WeiboOutlined style={{...iconStyles, color: '#1890ff'}}/>
                             </div>
                         </Space>
                     </div>
@@ -202,8 +230,8 @@ const Page : React.FC = () =>
                     activeKey={loginType}
                     onChange={(activeKey) => setLoginType(activeKey as LoginType)}
                 >
-                    <Tabs.TabPane key={'account'} tab={'账号密码登录'} />
-                    <Tabs.TabPane key={'phone'} tab={'手机号登录'} />
+                    <Tabs.TabPane key={'account'} tab={'账号密码登录'}/>
+                    <Tabs.TabPane key={'phone'} tab={'手机号登录'}/>
                 </Tabs>
                 {loginType === 'account' && (
                     <>
@@ -249,6 +277,30 @@ const Page : React.FC = () =>
                                 },
                             ]}
                         />
+                        <div style={{
+                            marginTop: 16,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between'
+                        }}>
+                            <ProFormText
+                                name="captcha"
+                                placeholder="请输入上图中的验证码"
+                                rules={[{ required: true, message: '请输入验证码！' }]}
+                                style={{ flex: 1,
+                                    marginRight: '10px',
+                                    height: 'auto',
+                                    minHeight: "300px"}} // 调整输入框样式
+                            />
+                            <img src={`data:image/png;base64,${captcha}`}
+                                 alt="captcha"
+                                 style={{width: '40%',
+                                         height: 'auto',
+                                         marginLeft: "10px",
+                                         borderRadius: '8px'}}
+                                 onClick={fetchCaptcha}
+                            />
+                        </div>
                     </>
                 )}
                 {loginType === 'phone' && (
@@ -294,8 +346,10 @@ const Page : React.FC = () =>
                                 size: 'large',
                             }}
                             placeholder={'请输入验证码'}
-                            captchaTextRender={(timing, count) => {
-                                if (timing) {
+                            captchaTextRender={(timing, count) =>
+                            {
+                                if (timing)
+                                {
                                     return `${count} ${'获取验证码'}`;
                                 }
                                 return '获取验证码';
@@ -307,7 +361,8 @@ const Page : React.FC = () =>
                                     message: '请输入验证码！',
                                 },
                             ]}
-                            onGetCaptcha={async () => {
+                            onGetCaptcha={async () =>
+                            {
                                 message.success('获取验证码成功！验证码为：1234');
                             }}
                         />
@@ -334,10 +389,11 @@ const Page : React.FC = () =>
     );
 };
 
-export default () => {
+export default () =>
+{
     return (
         <ProConfigProvider dark>
-            <Page />
+            <Page/>
         </ProConfigProvider>
     );
 };

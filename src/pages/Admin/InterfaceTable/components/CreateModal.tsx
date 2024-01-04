@@ -14,13 +14,14 @@ const CreateModal: React.FC<Props> = (props) =>
 {
   const {columns, onCancel, onSubmit, open} = props;
   return (
-    <Modal open={open} footer={null} onCancel={onCancel}>
+    <Modal open={open} footer={null} onCancel={onCancel} width={"800px"}>
       <ProTable
         columns={columns}
         type="form"
         onSubmit={async (values) =>
         {
-          return onSubmit?.(values)
+          console.log(values)
+          // return onSubmit?.(values)
         }}
       />
     </Modal>

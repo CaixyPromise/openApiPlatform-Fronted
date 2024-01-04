@@ -1,9 +1,3 @@
-import {
-    getUserVOByIdUsingGET,
-    updateSecretKeyUsingPOST,
-    updateUserUsingPOST,
-    userLoginUsingPOST,
-} from '@/services/nero-api-backend/userController';
 import {useModel} from '@@/exports';
 import {
     CommentOutlined,
@@ -19,7 +13,12 @@ import {PageContainer, ProForm, ProFormInstance, ProFormText} from '@ant-design/
 import {Button, Card, Col, Divider, message, Modal, Row, Typography, Upload, UploadFile, UploadProps,} from 'antd';
 import {RcFile, UploadChangeParam} from 'antd/es/upload';
 import React, {useEffect, useRef, useState} from 'react';
-import {uploadFileUsingPOST} from "@/services/nero-api-backend/fileController";
+// import {uploadFileUsingPOST} from "@/services/nero-api-backend/fileController";
+import {
+    getLoginUserUsingGet,
+    getModifyLicenseUsingGet, getModifyLicenseUsingPost, updateAccessKeyUsingPost, updateKeyUsingGet,
+    updateUserUsingPost
+} from "@/services/apiBackend/userController";
 
 const { Paragraph } = Typography;
 
@@ -60,10 +59,12 @@ const Profile: React.FC = () => {
             userPassword: string;
         }>
     >();
+    const [signature, setSignature] = useState<string>("");
+
 
     useEffect(() => {
         try {
-            getUserInfo(initialState?.loginUser?.id);
+            getUserInfo(initialState?.currentUser?.id);
         } catch (e: any) {
             console.log(e);
         }
@@ -71,7 +72,7 @@ const Profile: React.FC = () => {
 
     // 获取用户信息
     const getUserInfo = async (id: any) => {
-        return getUserVOByIdUsingGET({ id }).then((res) => {
+        return getLoginUserUsingGet({ id }).then((res) => {
             if (res.data) {
                 setInitialState((s: any) => ({ ...s, loginUser: res.data }));
                 setData(res.data);
@@ -85,11 +86,10 @@ const Profile: React.FC = () => {
         let userPassword = formRef?.current?.getFieldValue('userPassword');
 
         // 登录
-        const res = await userLoginUsingPOST({
-            userAccount: data?.userAccount,
-            userPassword: userPassword,
+        const res = await getModifyLicenseUsingPost({
+            password: userPassword,
         });
-        if (res.code === 0) {
+        if (res.data) {
             setOpen(false);
             setVisible(true);
             formRef?.current?.resetFields();
@@ -99,7 +99,7 @@ const Profile: React.FC = () => {
     // 更新用户头像
     const updateUserAvatar = async (id: string, userAvatar: string) => {
         // 更新用户头像
-        const res = await updateUserUsingPOST({
+        const res = await updateUserUsingPost({
             id,
             userAvatar,
         });
@@ -146,15 +146,18 @@ const Profile: React.FC = () => {
         try {
             let userPassword = formRef?.current?.getFieldValue('userPassword');
             // 登录
-            const res = await userLoginUsingPOST({
-                userAccount: data?.userAccount,
-                userPassword: userPassword,
+            const getState = await getModifyLicenseUsingPost({
+                password: userPassword,
             });
-            if (res.code === 0) {
-                const res = await updateSecretKeyUsingPOST({
+            if (getState.data)
+            {
+                const res = await updateKeyUsingGet({
                     id: data?.id,
+                    token: getState.data.signature,
+                    name: "accessKey"
                 });
-                if (res.data) {
+                if (res.data)
+                {
                     getUserInfo(data?.id);
                     message.success('重置成功！');
                     setOpen(false);
