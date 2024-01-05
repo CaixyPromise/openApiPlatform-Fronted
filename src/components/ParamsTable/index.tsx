@@ -17,6 +17,7 @@ const ParamsTable: React.FC<ParamsTablePros> = ({
     });
     const doData = (value: any) =>
     {
+        console.log("value is: ", value)
         const valueArray = [...value];
         setDataSource(valueArray)
         const requestIds = valueArray?.map((item) => item.id as unknown as string) || [];

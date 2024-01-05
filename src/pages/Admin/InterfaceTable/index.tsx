@@ -49,6 +49,7 @@ const InterfaceInfoTable: React.FC = () =>
     const hide = message.loading('正在添加');
     try
     {
+      console.log("fields is: ", fields)
       await addInterfaceInfoUsingPost({
         ...fields,
       });

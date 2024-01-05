@@ -3,7 +3,7 @@ import {ProColumns, ProFormColumnsType} from '@ant-design/pro-components';
 import {Tag} from 'antd';
 import {InterfaceRequestMethodEnum} from "@/enum/commonEnum";
 import ParamsTable from "@/components/ParamsTable";
-import {NewRequestColumn, NewResponseColumn} from "@/typings";
+import {NewHeaderColumn, NewRequestColumn, NewResponseColumn} from "@/typings";
 
 
 export const defaultNewRequestColumn: NewRequestColumn = {
@@ -17,6 +17,13 @@ export const defaultNewResponseColumn: NewResponseColumn = {
     fieldName: '',
     type: "string",
     desc: "",
+}
+
+export const defaultNewHeaderColumn: NewHeaderColumn = {
+    HeaderName: '',
+    HeaderValue: '',
+    required: "是",
+    description: "",
 }
 
 export const requestParam: ProColumns[] = [
@@ -77,6 +84,58 @@ export const requestParam: ProColumns[] = [
         dataIndex: 'desc',
     },
 ]
+
+// 请求头编辑
+export const requestHeaderParam: ProColumns[] = [
+    {
+        title: '请求头名称',
+        dataIndex: 'HeaderName',
+        formItemProps: {
+            rules: [
+                {
+                    required: true,
+                    message: 'Header name is required',
+                },
+            ],
+        },
+    },
+    {
+        title: '请求头值',
+        dataIndex: 'HeaderValue',
+        formItemProps: {
+            rules: [
+                {
+                    required: true,
+                    message: 'Header value is required',
+                },
+            ],
+        },
+    },
+    {
+        title: "是否必填",
+        dataIndex: "required",
+        valueType: "select",
+        valueEnum: {
+            true:  {text: "是"},
+            false: {text: "否"},
+        },
+        formItemProps: {
+            rules: [
+                {
+                    required: true,
+                    whitespace: true,
+                    message: 'This is required',
+                },
+            ],
+        },
+    },
+    {
+        title: '描述',
+        dataIndex: 'description',
+        valueType: 'text',
+    }
+];
+
 export const responseParam: ProColumns[] = [
     {
         title: '参数名称',
@@ -119,7 +178,7 @@ export const responseParam: ProColumns[] = [
     },
 ]
 
-export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo, "text">[] = [
+export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfoAddRequest, "text">[] = [
     {
         dataIndex: 'id',
         valueType: 'index',
@@ -140,7 +199,8 @@ export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo
             ],
         },
         width: 'lg',
-    }, {
+    },
+    {
         title: '接口地址',
         dataIndex: 'url',
         tooltip: "接口地址",
@@ -159,7 +219,7 @@ export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo
         title: '请求方法',
         dataIndex: 'method',
         tooltip: "请求方法",
-        valueType: "radio",
+        valueType: "select",
         key: "method",
         valueEnum: {
             GET: {
@@ -184,61 +244,12 @@ export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo
             ],
         },
         width: 'lg',
-        colProps: {
-            span: 12,
-        },
-    },
-    // {
-    //     title: '扣除积分个数',
-    //     dataIndex: 'reduceScore',
-    //     tooltip: "扣除积分个数",
-    //     width: 'lg',
-    //     key: "reduceScore",
-    //     colProps: {
-    //         span: 12,
-    //     }, formItemProps: {
-    //         rules: [
-    //             () => ({
-    //                 validator(_, value)
-    //                 {
-    //                     if (!value)
-    //                     {
-    //                         return Promise.reject(new Error("扣除积分个数为必填项"));
-    //                     }
-    //                     if (value < 0)
-    //                     {
-    //                         return Promise.reject(new Error("扣除积分个数不能为负数"));
-    //                     }
-    //                     return Promise.resolve();
-    //                 },
-    //                 required: true,
-    //             })],
-    //     },
-    // },
-    {
-        title: '请求示例',
-        key: "requestExample",
-        dataIndex: 'description',
-        width: 'lg',
-        valueType: "text",
-        colProps: {
-            span: 12,
-        },
-    }, {
-        title: '返回格式',
-        key: "returnFormat",
-        dataIndex: 'returnFormat',
-        width: 'lg',
-        valueType: "text",
-        colProps: {
-            span: 12,
-        },
     },
     {
-        title: '请求参数',
-        dataIndex: 'requestParams',
-        tooltip: "请求参数",
-        key: "requestParams",
+        title: '请求载荷',
+        dataIndex: 'requestPayload',
+        tooltip: "请求载荷: params/body",
+        key: "requestPayload",
         colProps: {
             span: 24,
         },
@@ -248,15 +259,41 @@ export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo
     },
     {
         title: '响应参数',
-        dataIndex: 'responseParams',
+        dataIndex: 'responsePayload',
         tooltip: "响应参数",
-        key: "responseParams",
+        key: "responsePayload",
         colProps: {
             span: 24,
         },
         renderFormItem: () => <ParamsTable
             column={responseParam}
             defaultNewColumn={defaultNewResponseColumn}/>,
+    },
+    {
+        title: '请求头',
+        dataIndex: 'requestHeader',
+        width: 'lg',
+        valueType: "jsonCode",
+        colProps: {
+            span: 12,
+        },
+        key: 'requestHeader',
+        renderFormItem: () => <ParamsTable
+            column={requestHeaderParam}
+            defaultNewColumn={defaultNewHeaderColumn}/>,
+    },
+    {
+        title: '响应头',
+        dataIndex: 'responseHeader',
+        width: 'lg',
+        valueType: "jsonCode",
+        colProps: {
+            span: 12,
+        },
+        key: 'requestHeader',
+        renderFormItem: () => <ParamsTable
+            column={requestHeaderParam}
+            defaultNewColumn={defaultNewHeaderColumn}/>,
     },
     {
         title: '接口描述',
@@ -268,15 +305,6 @@ export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo
         colProps: {
             span: 12,
         },
-    }, {
-        title: '请求头',
-        dataIndex: 'requestHeader',
-        width: 'lg',
-        valueType: "jsonCode",
-        colProps: {
-            span: 12,
-        },
-        key: 'requestHeader',
     },
 ];
 

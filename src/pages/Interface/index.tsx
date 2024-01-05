@@ -115,8 +115,8 @@ const Index: React.FC = () =>
     const [data, setData] = useState<API.InterfaceInfo>();
     const [invokeRes, setInvokeRes] = useState<any>();
     const [invokeLoading, setInvokeLoading] = useState(false);
-    const [payloadFields, setPayloadFields] = useState< {key: string, value: any}[]>();
-    const [paramsFields, setParamsFields] = useState< {key: string, value: any}[]>();
+    const [payloadFields, setPayloadFields] = useState<string>('');
+    // const [paramsFields, setParamsFields] = useState< {key: string, value: any}[]>();
     const params = useParams();
     const [form] = Form.useForm();
     const loadData = async () => {
@@ -135,12 +135,14 @@ const Index: React.FC = () =>
 
             if (res.data?.requestPayload)
             {
-                const payloadArray = Object
-                    .entries(JSON.parse(res.data.requestPayload))
-                    .map(([key, value]) => ({ key, value }));
+                // const payloadArray = Object
+                //     .entries(JSON.parse(res.data.requestPayload))
+                //     .map(([key, value]) => ({ key, value }));
                 await flushSync(async () =>
                 {
-                    await setPayloadFields(payloadArray);
+                    // Object 转 json字符串
+                    const payloadJsonStr = JSON.stringify(JSON.parse(res.data.requestPayload), null, 2);
+                    setPayloadFields(payloadJsonStr);
                 })
             }
 
@@ -224,12 +226,14 @@ const Index: React.FC = () =>
                                 defaultNewColumn={{
                                 "fieldName": "",
                                 "value": ''
-                            }}/>
+                                }}
+                                value={payloadFields}
+                            />
                         </>
                     )}
                     <Form.Item>
                         <Button type="primary" htmlType="submit">
-                            调用
+                            在线测试
                         </Button>
                     </Form.Item>
                 </Form>

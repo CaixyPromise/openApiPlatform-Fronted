@@ -20,8 +20,6 @@ const UpdateModal: React.FC<Props> = (props) =>
     fromRef.current?.setFieldsValue(initialValue);
   }, [initialValue])
 
-  console.log(initialValue)
-
   return (
     <Modal open={open} footer={null} onCancel={onCancel}>
       <ProTable

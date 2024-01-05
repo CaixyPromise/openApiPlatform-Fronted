@@ -43,6 +43,14 @@ interface NewRequestColumn
     desc?: string,
 }
 
+interface NewHeaderColumn
+{
+    HeaderName: string,
+    HeaderValue: string,
+    required: "是" | "否",
+    description?: string
+}
+
 interface NewResponseColumn
 {
     fieldName: string,
