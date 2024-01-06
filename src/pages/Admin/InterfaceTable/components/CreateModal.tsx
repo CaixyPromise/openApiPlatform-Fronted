@@ -5,9 +5,9 @@ import {Modal} from 'antd';
 import React from 'react';
 
 export type Props = {
-  columns: ProFormColumnsType<any>[];
+  columns: ProFormColumnsType<API.InterfaceInfoAddRequest>[];
   onCancel: () => void;
-  onSubmit: (values: API.InterfaceInfo) => void;
+  onSubmit: (values: API.InterfaceInfoAddRequest) => void;
   open: boolean;
 }
 const CreateModal: React.FC<Props> = (props) =>
@@ -21,7 +21,7 @@ const CreateModal: React.FC<Props> = (props) =>
         type="form"
         onSubmit={async (values) =>
         {
-          // console.log(values)
+          console.log(values)
           return onSubmit?.(values)
         }}
       />

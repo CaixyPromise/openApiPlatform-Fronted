@@ -86,7 +86,7 @@ export const requestParam: ProColumns[] = [
 ]
 
 // 请求头编辑
-export const requestHeaderParam: ProColumns[] = [
+export const HeaderParam: ProColumns[] = [
     {
         title: '请求头名称',
         dataIndex: 'HeaderName',
@@ -279,7 +279,7 @@ export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo
         },
         key: 'requestHeader',
         renderFormItem: () => <ParamsTable
-            column={requestHeaderParam}
+            column={HeaderParam}
             defaultNewColumn={defaultNewHeaderColumn}/>,
     },
     {
@@ -290,9 +290,9 @@ export const InterfaceInfoModalFormColumns: ProFormColumnsType<API.InterfaceInfo
         colProps: {
             span: 12,
         },
-        key: 'requestHeader',
+        key: 'responseHeader',
         renderFormItem: () => <ParamsTable
-            column={requestHeaderParam}
+            column={HeaderParam}
             defaultNewColumn={defaultNewHeaderColumn}/>,
     },
     {
