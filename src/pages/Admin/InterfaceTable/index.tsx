@@ -26,19 +26,12 @@ interface InterfaceDataProps {
 
 const InterfaceInfoTable: React.FC = () =>
 {
-  /**
-   * @zh-CN 新建窗口的弹窗
-   *  */
   const [createModalOpen, handleModalOpen] = useState<boolean>(false);
-  /**
-   * @zh-CN 分布更新窗口的弹窗
-   * */
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
   const [currentRow, setCurrentRow] = useState<API.InterfaceInfo>();
   const [selectedRowsState, setSelectedRows] = useState<API.InterfaceInfo[]>([]);
-
 
   /**
    * @zh-CN 添加节点
@@ -47,19 +40,18 @@ const InterfaceInfoTable: React.FC = () =>
   const handleAdd = async (fields: API.InterfaceInfoAddRequest) =>
   {
     const hide = message.loading('正在添加');
-    try
-    {
+    try {
       console.log("fields is: ", fields)
       await addInterfaceInfoUsingPost({
         ...fields,
       });
-      hide();
+      // hide();
       message.success('添加成功');
       handleModalOpen(false);
       return true;
-    } catch (error)
-    {
-      hide();
+    }
+    catch (error) {
+      // hide();
       message.error('添加失败，请重新添加');
       return false;
     }
@@ -67,9 +59,7 @@ const InterfaceInfoTable: React.FC = () =>
 
 
   /**
-   * @en-US Update node
    * @zh-CN 更新节点
-   *
    * @param fields
    */
   const handleUpdate = async (fields: API.InterfaceInfoUpdateRequest) =>
@@ -215,8 +205,6 @@ const InterfaceInfoTable: React.FC = () =>
       message.error("下线失败: " + error);
     }
   }
-
-
 
   const columns: ProColumns<API.InterfaceInfo>[] = [
 
@@ -375,6 +363,7 @@ const InterfaceInfoTable: React.FC = () =>
           {
             setSelectedRows(selectedRows);
           },
+
         }}
       />
       {selectedRowsState?.length > 0 && (
@@ -415,7 +404,6 @@ const InterfaceInfoTable: React.FC = () =>
         onCancel={() => {handleModalOpen(false)}}
         onSubmit={handleAdd}
         open={createModalOpen}
-
       />
       <UpdateModal
         columns={columns}

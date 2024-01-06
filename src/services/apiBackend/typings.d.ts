@@ -117,6 +117,13 @@ declare namespace API {
     id?: number;
   };
 
+  type HeaderParam = {
+    description?: string;
+    fieldName?: string;
+    headerValue?: string;
+    required?: string;
+  };
+
   type InterfaceInfo = {
     createTime?: string;
     description?: string;
@@ -138,10 +145,10 @@ declare namespace API {
     description?: string;
     method?: string;
     name?: string;
-    requestHeader?: string;
-    requestPayload?: string;
-    responseHeader?: string;
-    responsePayload?: string;
+    requestHeader?: HeaderParam[];
+    requestPayload?: PayloadParam[];
+    responseHeader?: HeaderParam[];
+    responsePayload?: PayloadParam[];
     url?: string;
   };
 
@@ -411,6 +418,13 @@ declare namespace API {
     searchCount?: boolean;
     size?: string;
     total?: string;
+  };
+
+  type PayloadParam = {
+    desc?: string;
+    fieldName?: string;
+    required?: string;
+    type?: string;
   };
 
   type Post = {
