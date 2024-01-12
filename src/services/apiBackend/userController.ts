@@ -44,6 +44,21 @@ export async function getUserByIdUsingGet(
   });
 }
 
+/** getVoucherKey POST /api/user/get_key */
+export async function getVoucherKeyUsingPost(
+  body: API.UserGetLicenseRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseGetVoucherVO>('/api/user/get_key', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** getLoginUser GET /api/user/get/login */
 export async function getLoginUserUsingGet(options?: { [key: string]: any }) {
   return request<API.BaseResponseUserVO>('/api/user/get/login', {
@@ -105,6 +120,36 @@ export async function userLogoutUsingPost(options?: { [key: string]: any }) {
   });
 }
 
+/** modifyUserEmail POST /api/user/modify/email */
+export async function modifyUserEmailUsingPost(
+  body: API.ModifyUserEmailRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseboolean>('/api/user/modify/email', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
+/** modifyPassword POST /api/user/modify/password */
+export async function modifyPasswordUsingPost(
+  body: API.ModifyPasswordRequest,
+  options?: { [key: string]: any },
+) {
+  return request<API.BaseResponseboolean>('/api/user/modify/password', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** userRegister POST /api/user/register */
 export async function userRegisterUsingPost(
   body: API.UserRegisterRequest,
@@ -122,15 +167,15 @@ export async function userRegisterUsingPost(
 
 /** getModifyLicense POST /api/user/signature */
 export async function getModifyLicenseUsingPost(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getModifyLicenseUsingPOSTParams,
+  body: API.UserGetLicenseRequest,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseSignatureVO>('/api/user/signature', {
     method: 'POST',
-    params: {
-      ...params,
+    headers: {
+      'Content-Type': 'application/json',
     },
+    data: body,
     ...(options || {}),
   });
 }
@@ -151,16 +196,9 @@ export async function updateUserUsingPost(
 }
 
 /** updateKey GET /api/user/update_key */
-export async function updateKeyUsingGet(
-  // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.updateKeyUsingGETParams,
-  options?: { [key: string]: any },
-) {
-  return request<API.BaseResponseboolean>('/api/user/update_key', {
+export async function updateKeyUsingGet(options?: { [key: string]: any }) {
+  return request<API.BaseResponseUpdateKeyVO>('/api/user/update_key', {
     method: 'GET',
-    params: {
-      ...params,
-    },
     ...(options || {}),
   });
 }

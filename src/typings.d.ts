@@ -45,8 +45,8 @@ interface NewRequestColumn
 
 interface NewHeaderColumn
 {
-    HeaderName: string,
-    HeaderValue: string,
+    fieldName: string,
+    headerValue: string,
     required: "是" | "否",
     description?: string
 }
@@ -62,7 +62,7 @@ export interface ParamsTablePros
 {
     defaultNewColumn: any,
     column: ProColumns[];
-    value?: string;
+    value?: string | object;
     onChange?: (
         value: {
             id: React.Key;

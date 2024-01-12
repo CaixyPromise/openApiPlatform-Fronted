@@ -1,3 +1,5 @@
+import {InitialState} from "@/typings";
+
 /**
  * @see https://umijs.org/zh-CN/plugins/plugin-access
  * */

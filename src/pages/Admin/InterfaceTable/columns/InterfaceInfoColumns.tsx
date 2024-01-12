@@ -20,11 +20,52 @@ export const defaultNewResponseColumn: NewResponseColumn = {
 }
 
 export const defaultNewHeaderColumn: NewHeaderColumn = {
-    HeaderName: '',
-    HeaderValue: '',
+    fieldName: '',
+    headerValue: '',
     required: "是",
     description: "",
 }
+
+export interface tryRequestParamsType
+{
+    fieldName: string,
+    fieldValue: string,
+    required: string,
+    type: string,
+    desc: string,
+}
+
+export const tryRequestParams: ProColumns[] = [
+    {
+        title: '参数名称',
+        editable: false,
+        dataIndex: 'fieldName',
+    },
+    {
+        title: '参数值',
+        dataIndex: 'fieldValue',
+        formItemProps: {
+            rules: [
+                {
+                    required: true,
+                    whitespace: true,
+                    message: '此项是必填项',
+                },
+            ],
+        },
+    },
+    {
+        title: '参数描述',
+        dataIndex: 'dec',
+        editable: false,
+    },
+    {
+        title: '参数类型',
+        dataIndex: 'type',
+        editable: false,
+    },
+]
+
 
 export const requestParam: ProColumns[] = [
     {
@@ -89,7 +130,7 @@ export const requestParam: ProColumns[] = [
 export const HeaderParam: ProColumns[] = [
     {
         title: '请求头名称',
-        dataIndex: 'HeaderName',
+        dataIndex: 'fieldName',
         formItemProps: {
             rules: [
                 {
@@ -101,7 +142,7 @@ export const HeaderParam: ProColumns[] = [
     },
     {
         title: '请求头值',
-        dataIndex: 'HeaderValue',
+        dataIndex: 'headerValue',
         formItemProps: {
             rules: [
                 {

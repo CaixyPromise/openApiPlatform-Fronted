@@ -11,6 +11,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseGetVoucherVO = {
+    code?: number;
+    data?: GetVoucherVO;
+    message?: string;
+  };
+
   type BaseResponseInterfaceInfo = {
     code?: number;
     data?: InterfaceInfo;
@@ -83,6 +89,18 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsestring = {
+    code?: number;
+    data?: string;
+    message?: string;
+  };
+
+  type BaseResponseUpdateKeyVO = {
+    code?: number;
+    data?: UpdateKeyVO;
+    message?: string;
+  };
+
   type BaseResponseUserVO = {
     code?: number;
     data?: UserVO;
@@ -103,10 +121,6 @@ declare namespace API {
     id?: string;
   };
 
-  type getModifyLicenseUsingPOSTParams = {
-    password?: string;
-  };
-
   type getPostByIdUsingGETParams = {
     /** id */
     id?: string;
@@ -115,6 +129,11 @@ declare namespace API {
   type getUserByIdUsingGETParams = {
     /** id */
     id?: number;
+  };
+
+  type GetVoucherVO = {
+    accessKey?: string;
+    secretKey?: string;
   };
 
   type HeaderParam = {
@@ -376,6 +395,27 @@ declare namespace API {
     viewName?: string;
   };
 
+  type ModifyEmailCaptchaRequest = {
+    code?: string;
+    eventType: number;
+    newEmail?: string;
+    signature?: string;
+  };
+
+  type ModifyPasswordRequest = {
+    confirmPassword: string;
+    emailCode: string;
+    newPassword: string;
+    oldPassword: string;
+    signature: string;
+  };
+
+  type ModifyUserEmailRequest = {
+    code: string;
+    email: string;
+    signature: string;
+  };
+
   type OrderItem = {
     asc?: boolean;
     column?: string;
@@ -479,11 +519,9 @@ declare namespace API {
     signature?: string;
   };
 
-  type updateKeyUsingGETParams = {
-    /** token */
-    token: string;
-    /** name */
-    name: string;
+  type UpdateKeyVO = {
+    accessKey?: string;
+    secretKey?: string;
   };
 
   type UserAddRequest = {
@@ -493,6 +531,12 @@ declare namespace API {
     userName?: string;
     userPassword?: string;
     userRole?: string;
+  };
+
+  type UserGetLicenseRequest = {
+    nonce: string;
+    password: string;
+    timestamp: string;
   };
 
   type UserLoginRequest = {
@@ -522,12 +566,10 @@ declare namespace API {
   };
 
   type UserVO = {
-    accessKey?: string;
-    createTime?: string;
+    balance?: string;
+    email?: string;
     gender?: number;
     id?: string;
-    secretKey?: string;
-    updateTime?: string;
     userAccount?: string;
     userAvatar?: string;
     userName?: string;

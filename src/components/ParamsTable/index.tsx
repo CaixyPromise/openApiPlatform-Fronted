@@ -15,12 +15,18 @@ const ParamsTable: React.FC<ParamsTablePros> = ({
     {
         return dataSource.map((item) => item.id as React.Key);
     });
+
+    const addUniqueIdToData = (data:any) => {
+        return data.map((item: { id: any; }) => ({ ...item, id: item.id || `temp-id-${Date.now()}-${Math.random()}` }));
+    };
+
     const doData = (value: any) =>
     {
         console.log("value is: ", value)
-        const valueArray = [...value];
+
+        const valueArray = Array.isArray(value) ? addUniqueIdToData(value) : [];
         setDataSource(valueArray)
-        const requestIds = valueArray?.map((item) => item.id as unknown as string) || [];
+        const requestIds = valueArray?.map((item: { id: unknown; }) => item.id as unknown as string) || [];
         setEditableRowKeys(requestIds)
     }
     useEffect(() =>
@@ -29,6 +35,10 @@ const ParamsTable: React.FC<ParamsTablePros> = ({
         {
             const parseValue = JSON.parse(value);
             doData(parseValue)
+        }
+        else if (typeof value == "object")
+        {
+            doData(value);
         }
 
     }, [value])
@@ -46,6 +56,8 @@ const ParamsTable: React.FC<ParamsTablePros> = ({
                     key="editable"
                     onClick={() =>
                     {
+                        console.log("action is: ", action)
+                        console.log("record is: ", record)
                         // @ts-ignore
                         action?.startEditable?.(record.id);
                     }}
@@ -87,6 +99,8 @@ const ParamsTable: React.FC<ParamsTablePros> = ({
                         })
                 },
             }}
+            // @ts-ignore
+            // maxLength={value?.length}
             editable={{
                 type: 'multiple',
                 editableKeys,

@@ -26,7 +26,7 @@ interface InterfaceDataProps {
 
 const InterfaceInfoTable: React.FC = () =>
 {
-  const [createModalOpen, handleModalOpen] = useState<boolean>(false);
+  const [createModalOpen, handleCreateModalOpen] = useState<boolean>(false);
   const [updateModalOpen, handleUpdateModalOpen] = useState<boolean>(false);
   const [showDetail, setShowDetail] = useState<boolean>(false);
   const actionRef = useRef<ActionType>();
@@ -45,9 +45,9 @@ const InterfaceInfoTable: React.FC = () =>
       await addInterfaceInfoUsingPost({
         ...fields,
       });
-      // hide();
+      hide();
       message.success('添加成功');
-      handleModalOpen(false);
+      // handleCreateModalOpen(false);
       return true;
     }
     catch (error) {
@@ -106,7 +106,8 @@ const InterfaceInfoTable: React.FC = () =>
       message.success('Deleted successfully and will refresh soon');
       actionRef.current?.reload();
       return true;
-    } catch (error)
+    }
+    catch (error)
     {
       hide();
       message.error('Delete failed, please try again');
@@ -349,7 +350,7 @@ const InterfaceInfoTable: React.FC = () =>
             key="primary"
             onClick={() =>
             {
-              handleModalOpen(true);
+              handleCreateModalOpen(true);
             }}
           >
             <PlusOutlined/> 新建
@@ -401,7 +402,7 @@ const InterfaceInfoTable: React.FC = () =>
       )}
       <CreateModal
         columns={InterfaceInfoModalFormColumns}
-        onCancel={() => {handleModalOpen(false)}}
+        onCancel={() => {handleCreateModalOpen(false)}}
         onSubmit={handleAdd}
         open={createModalOpen}
       />
@@ -409,7 +410,6 @@ const InterfaceInfoTable: React.FC = () =>
         columns={columns}
         onCancel={() => handleUpdateModalOpen(false)}
         onSubmit={async (param: API.InterfaceInfo) => {
-          console.log("handleUpdate is: ", param)
           const response = await handleUpdate(param);
           if (response)
           {
