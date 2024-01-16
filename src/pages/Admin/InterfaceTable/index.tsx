@@ -407,7 +407,7 @@ const InterfaceInfoTable: React.FC = () =>
         open={createModalOpen}
       />
       <UpdateModal
-        columns={columns}
+        columns={InterfaceInfoModalFormColumns}
         onCancel={() => handleUpdateModalOpen(false)}
         onSubmit={async (param: API.InterfaceInfo) => {
           const response = await handleUpdate(param);
