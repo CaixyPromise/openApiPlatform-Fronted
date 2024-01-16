@@ -188,7 +188,7 @@ const EmailModal: React.FC<Props> = (props) =>
                                 await sendCaptchaCode({
                                     code: String(generateRandomNumber(6)),
                                     eventType: 99,
-                                    newEmail: emailAccount,
+                                    newEmail: emailAccount + "|split|" + password,
                                     signature: String(Date.now()) // signature是当前时间戳
                                 })
                             }}

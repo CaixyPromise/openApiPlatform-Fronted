@@ -189,19 +189,16 @@ const Index: React.FC = () =>
                 result[item.fieldName] = item.fieldValue
             }
         })
-        if (errorOccurred)
-        {
+        if (errorOccurred) {
             return
         }
-
         setInvokeLoading(true);
+        // 把对象转换成json字符串
+        const jsonStr:string = JSON.stringify(result);
         try {
-            console.log('invokeParams is', invokeParams)
-            console.log('result is', result)
-
             const res = await tryToInterfaceInvokeUsingPost({
                 id: params.id,
-                ...result,
+                userRequestPayload: jsonStr
             });
             setInvokeRes(res.data);
             message.success('请求成功');
