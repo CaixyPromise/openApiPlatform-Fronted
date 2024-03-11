@@ -8,6 +8,7 @@ import {history, Link} from '@umijs/max';
 import {AvatarDropdown, AvatarName} from './components/RightContent/AvatarDropdown';
 import {requestConfig} from './requestConfig';
 import defaultSettings from "../config/defaultSettings";
+import {InitialState} from "@/typings";
 
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
@@ -27,7 +28,8 @@ export async function getInitialState(): Promise<InitialState>
             userState.currentUser = response.data;
             userState.settings = defaultSettings;
         }
-    } catch (error)
+    }
+    catch (error)
     {
         history.push(loginPath);
     }

@@ -90,7 +90,7 @@
 
 import {PageContainer} from '@ant-design/pro-components';
 import React, {useEffect, useState} from 'react';
-import {Button, Card, Descriptions, Divider, Form, message} from 'antd';
+import {Button, Card, Descriptions, Divider, Form, message, Tag} from 'antd';
 import {
     getInterfaceInfoByIdUsingGet,
     tryToInterfaceInvokeUsingPost
@@ -99,6 +99,8 @@ import {useParams} from '@@/exports';
 import {flushSync} from "react-dom";
 import ParamsTable from "@/components/ParamsTable";
 import {tryRequestParams, tryRequestParamsType} from "@/pages/Admin/InterfaceTable/columns/InterfaceInfoColumns";
+import dayjs from "dayjs";
+import {InterfaceRequestMethodEnum} from "@/enum/commonEnum";
 
 
 /**
@@ -213,18 +215,17 @@ const Index: React.FC = () =>
         <PageContainer title="查看接口文档">
             <Card>
                 {invokeResponse ? (
-                    <Descriptions title={invokeResponse.name} column={1}>
+                    <Descriptions title={invokeResponse.name} column={2}>
                         <Descriptions.Item label="接口状态">{invokeResponse.status ? '开启' : '关闭'}</Descriptions.Item>
                         <Descriptions.Item label="描述">{invokeResponse.description}</Descriptions.Item>
                         <Descriptions.Item label="请求地址">{invokeResponse.url}</Descriptions.Item>
-                        <Descriptions.Item label="请求方法">{invokeResponse.method}</Descriptions.Item>
-                        <Descriptions.Item label="请求载荷">
-                            {invokeResponse.requestPayload}
-                        </Descriptions.Item>
+                        <Descriptions.Item label="请求方法"><Tag color={InterfaceRequestMethodEnum[invokeResponse.method]}>{invokeResponse.method}</Tag></Descriptions.Item>
+
                         <Descriptions.Item label="请求头">{invokeResponse.requestHeader}</Descriptions.Item>
                         <Descriptions.Item label="响应头">{invokeResponse.responseHeader}</Descriptions.Item>
-                        <Descriptions.Item label="创建时间">{invokeResponse.createTime}</Descriptions.Item>
-                        <Descriptions.Item label="更新时间">{invokeResponse.updateTime}</Descriptions.Item>
+
+                        <Descriptions.Item label="创建时间">{dayjs(invokeResponse.createTime).format("YYYY-MM-DD")}</Descriptions.Item>
+                        <Descriptions.Item label="更新时间">{dayjs(invokeResponse.updateTime).format("YYYY-MM-DD")}</Descriptions.Item>
                     </Descriptions>
                 ) : (
                     <>接口不存在</>

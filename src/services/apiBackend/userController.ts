@@ -32,7 +32,7 @@ export async function deleteUserUsingPost(
 /** getUserById GET /api/user/get */
 export async function getUserByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getUserByIdUsingGETParams,
+  params: API.getUserByIdUsingGetParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseUserVO>('/api/user/get', {
@@ -70,7 +70,7 @@ export async function getLoginUserUsingGet(options?: { [key: string]: any }) {
 /** listUser GET /api/user/list */
 export async function listUserUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listUserUsingGETParams,
+  params: API.listUserUsingGetParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseListUserVO>('/api/user/list', {
@@ -85,7 +85,7 @@ export async function listUserUsingGet(
 /** listUserByPage GET /api/user/list/page */
 export async function listUserByPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listUserByPageUsingGETParams,
+  params: API.listUserByPageUsingGetParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponsePageUserVO>('/api/user/list/page', {

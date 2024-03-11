@@ -35,7 +35,7 @@ export async function deleteInterfaceInfoUsingPost(
 /** getInterfaceInfoById GET /api/interfaceInfo/get */
 export async function getInterfaceInfoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getInterfaceInfoByIdUsingGETParams,
+  params: API.getInterfaceInfoByIdUsingGetParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseInterfaceInfo>('/api/interfaceInfo/get', {
@@ -65,7 +65,7 @@ export async function tryToInterfaceInvokeUsingPost(
 /** listInterfaceInfo GET /api/interfaceInfo/list */
 export async function listInterfaceInfoUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listInterfaceInfoUsingGETParams,
+  params: API.listInterfaceInfoUsingGetParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseListInterfaceInfo>('/api/interfaceInfo/list', {
@@ -80,7 +80,7 @@ export async function listInterfaceInfoUsingGet(
 /** listInterfaceInfoByPage GET /api/interfaceInfo/list/page */
 export async function listInterfaceInfoByPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listInterfaceInfoByPageUsingGETParams,
+  params: API.listInterfaceInfoByPageUsingGetParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponsePageInterfaceInfo>('/api/interfaceInfo/list/page', {

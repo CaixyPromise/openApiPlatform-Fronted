@@ -7,7 +7,9 @@ import * as captchaController from './captchaController';
 import * as dailyCheckController from './dailyCheckController';
 import * as emailController from './emailController';
 import * as interfaceInfoController from './interfaceInfoController';
+import * as orderController from './orderController';
 import * as postController from './postController';
+import * as productInfoController from './productInfoController';
 import * as rankController from './rankController';
 import * as userController from './userController';
 export default {
@@ -16,7 +18,9 @@ export default {
   dailyCheckController,
   emailController,
   interfaceInfoController,
+  orderController,
   postController,
+  productInfoController,
   rankController,
   userController,
 };

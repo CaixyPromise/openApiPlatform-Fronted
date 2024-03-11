@@ -549,7 +549,7 @@ const Profile: React.FC = () =>
                             </Paragraph>
                         </div>
                         {/*<div>*/}
-                        {/*    <Tooltip title={"邀请好友注册双方都可获得100积分"}>*/}
+                        {/*    <Tooltip title={"邀请好友注册双方都可获得100硬币"}>*/}
                         {/*        <h4>我的邀请码：</h4>*/}
                         {/*    </Tooltip>*/}
                         {/*    <Paragraph*/}
@@ -583,7 +583,7 @@ const Profile: React.FC = () =>
                              <>
                                  <Button onClick={() =>
                                  {
-                                     history.push("/recharge/list")
+                                     history.push("/recharge")
                                  }}>充值硬币</Button>
                              </>
                          }
@@ -591,7 +591,7 @@ const Profile: React.FC = () =>
                     <strong>硬币 💰: </strong> <span
                     style={{color: "red", fontSize: 18, marginBottom: 10}}>{loginUser?.balance}</span>
                     <br/>
-                    <Button style={{marginRight: 10, marginBottom: 10}} type={"primary"} onClick={() =>
+                    <Button style={{marginRight: 10, marginTop: 10, marginBottom: 10}} type={"primary"} onClick={() =>
                     {
                         // setOpen(true)
                     }}>邀请好友</Button>
@@ -599,9 +599,9 @@ const Profile: React.FC = () =>
                     {/*        style={{marginRight: 10}} type={"primary"} onClick={async () =>*/}
                     {/*{*/}
                     {/*    setDailyCheckInLoading(true)*/}
-                    {/*    const res = await doDailyCheckInUsingPOST()*/}
+                    {/*    const res = await doDailyCheckInUsingPost()*/}
                     {/*    if (res.data && res.code === 0) {*/}
-                    {/*        const res = await getLoginUserUsingGET();*/}
+                    {/*        const res = await getLoginUserUsingGet();*/}
                     {/*        if (res.data && res.code === 0) {*/}
                     {/*            message.success("签到成功")*/}
                     {/*            setInitialState({loginUser: res.data, settings: Settings})*/}
@@ -612,7 +612,7 @@ const Profile: React.FC = () =>
                     {/*    }, 1000)*/}
                     {/*}}>*/}
                     {/*    <Tooltip title={<>*/}
-                    {/*        <p>每日签到可获取10积分</p>*/}
+                    {/*        <p>每日签到可获取10硬币</p>*/}
                     {/*        /!*<p>普通用户上限100</p>*!/*/}
                     {/*        /!*<p>VPI会员上限1000</p>*!/*/}
                     {/*    </>}>*/}
@@ -630,7 +630,12 @@ const Profile: React.FC = () =>
                         <>
                             <Button
                                 loading={voucherLoading}
-                                onClick={showVoucher}>查看凭证</Button>
+                                onClick={showVoucher}
+
+                                style={{
+                                    marginRight: "8px"
+                                }}
+                            >查看凭证</Button>
                             {userKey?.accessKey && userKey?.secretKey && (
                                 <Button
                                     loading={voucherLoading}

@@ -16,7 +16,7 @@ const Index: React.FC = () =>
   {
     setLoading(true);
     try {
-      const params: API.listInterfaceInfoByPageUsingGETParams = {
+      const params: API.listInterfaceInfoByPageUsingGetParams = {
         current: String(current),
         pageSize: String(pageSize)
       }

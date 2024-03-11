@@ -41,6 +41,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseListProductInfo = {
+    code?: number;
+    data?: ProductInfo[];
+    message?: string;
+  };
+
   type BaseResponseListUserVO = {
     code?: number;
     data?: UserVO[];
@@ -59,6 +65,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponseOrderVo = {
+    code?: number;
+    data?: OrderVo;
+    message?: string;
+  };
+
   type BaseResponsePageInterfaceInfo = {
     code?: number;
     data?: PageInterfaceInfo;
@@ -71,6 +83,12 @@ declare namespace API {
     message?: string;
   };
 
+  type BaseResponsePageProductInfo = {
+    code?: number;
+    data?: PageProductInfo;
+    message?: string;
+  };
+
   type BaseResponsePageUserVO = {
     code?: number;
     data?: PageUserVO;
@@ -80,6 +98,18 @@ declare namespace API {
   type BaseResponsePost = {
     code?: number;
     data?: Post;
+    message?: string;
+  };
+
+  type BaseResponseProductInfo = {
+    code?: number;
+    data?: ProductInfo;
+    message?: string;
+  };
+
+  type BaseResponseProductOrderVo = {
+    code?: number;
+    data?: ProductOrderVo;
     message?: string;
   };
 
@@ -112,21 +142,41 @@ declare namespace API {
     uuid?: string;
   };
 
+  type closedProductOrderUsingPostParams = {
+    /** orderNo */
+    orderNo?: string;
+  };
+
+  type deleteProductOrderUsingPostParams = {
+    /** id */
+    id?: string;
+  };
+
   type DeleteRequest = {
     id?: string;
   };
 
-  type getInterfaceInfoByIdUsingGETParams = {
+  type getInterfaceInfoByIdUsingGetParams = {
     /** id */
     id?: string;
   };
 
-  type getPostByIdUsingGETParams = {
+  type getPostByIdUsingGetParams = {
     /** id */
     id?: string;
   };
 
-  type getUserByIdUsingGETParams = {
+  type getProductInfoByIdUsingGetParams = {
+    /** id */
+    id?: string;
+  };
+
+  type getProductOrderByIdUsingGetParams = {
+    /** id */
+    id?: string;
+  };
+
+  type getUserByIdUsingGetParams = {
     /** id */
     id?: number;
   };
@@ -141,6 +191,10 @@ declare namespace API {
     fieldName?: string;
     headerValue?: string;
     required?: string;
+  };
+
+  type IdRequest = {
+    id?: string;
   };
 
   type InterfaceInfo = {
@@ -217,7 +271,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listInterfaceInfoByPageUsingGETParams = {
+  type listInterfaceInfoByPageUsingGetParams = {
     current?: string;
     description?: string;
     id?: string;
@@ -235,7 +289,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listInterfaceInfoUsingGETParams = {
+  type listInterfaceInfoUsingGetParams = {
     current?: string;
     description?: string;
     id?: string;
@@ -253,7 +307,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listPostByPageUsingGETParams = {
+  type listPostByPageUsingGetParams = {
     age?: number;
     contact?: string;
     content?: string;
@@ -270,7 +324,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listPostUsingGETParams = {
+  type listPostUsingGetParams = {
     age?: number;
     contact?: string;
     content?: string;
@@ -287,7 +341,53 @@ declare namespace API {
     userId?: string;
   };
 
-  type listUserByPageUsingGETParams = {
+  type listProductInfoByPageUsingGetParams = {
+    addPoints?: number;
+    current?: string;
+    description?: string;
+    name?: string;
+    pageSize?: string;
+    productType?: string;
+    sortField?: string;
+    sortOrder?: string;
+    total?: number;
+  };
+
+  type listProductInfoBySearchTextPageUsingGetParams = {
+    current?: string;
+    pageSize?: string;
+    searchText?: string;
+    sortField?: string;
+    sortOrder?: string;
+  };
+
+  type listProductInfoUsingGetParams = {
+    addPoints?: number;
+    current?: string;
+    description?: string;
+    name?: string;
+    pageSize?: string;
+    productType?: string;
+    sortField?: string;
+    sortOrder?: string;
+    total?: number;
+  };
+
+  type listProductOrderByPageUsingGetParams = {
+    addPoints?: number;
+    current?: string;
+    orderName?: string;
+    orderNo?: string;
+    pageSize?: string;
+    payType?: string;
+    productInfo?: string;
+    sortField?: string;
+    sortOrder?: string;
+    status?: string;
+    total?: number;
+  };
+
+  type listUserByPageUsingGetParams = {
     createTime?: string;
     current?: string;
     gender?: number;
@@ -302,7 +402,7 @@ declare namespace API {
     userRole?: string;
   };
 
-  type listUserUsingGETParams = {
+  type listUserUsingGetParams = {
     createTime?: string;
     current?: string;
     gender?: number;
@@ -421,6 +521,19 @@ declare namespace API {
     column?: string;
   };
 
+  type OrderVo = {
+    countId?: string;
+    current?: string;
+    maxLimit?: string;
+    optimizeCountSql?: boolean;
+    optimizeJoinOfCountSql?: boolean;
+    orders?: OrderItem[];
+    records?: ProductOrderVo[];
+    searchCount?: boolean;
+    size?: string;
+    total?: string;
+  };
+
   type PageInterfaceInfo = {
     countId?: string;
     current?: string;
@@ -447,6 +560,19 @@ declare namespace API {
     total?: string;
   };
 
+  type PageProductInfo = {
+    countId?: string;
+    current?: string;
+    maxLimit?: string;
+    optimizeCountSql?: boolean;
+    orders?: OrderItem[];
+    pages?: string;
+    records?: ProductInfo[];
+    searchCount?: boolean;
+    size?: string;
+    total?: string;
+  };
+
   type PageUserVO = {
     countId?: string;
     current?: string;
@@ -458,6 +584,11 @@ declare namespace API {
     searchCount?: boolean;
     size?: string;
     total?: string;
+  };
+
+  type PayCreateRequest = {
+    payType?: string;
+    productId?: string;
   };
 
   type PayloadParam = {
@@ -513,6 +644,72 @@ declare namespace API {
     place?: string;
     reviewMessage?: string;
     reviewStatus?: number;
+  };
+
+  type ProductInfo = {
+    addPoints?: string;
+    createTime?: string;
+    description?: string;
+    expirationTime?: string;
+    id?: string;
+    isDelete?: number;
+    name?: string;
+    productType?: string;
+    status?: number;
+    total?: string;
+    updateTime?: string;
+    userId?: string;
+  };
+
+  type ProductInfoAddRequest = {
+    addPoints?: number;
+    description?: string;
+    expirationTime?: string;
+    name?: string;
+    productType?: string;
+    total?: number;
+  };
+
+  type ProductInfoUpdateRequest = {
+    addPoints?: number;
+    description?: string;
+    expirationTime?: string;
+    id?: string;
+    name?: string;
+    productType?: string;
+    total?: number;
+  };
+
+  type ProductOrderQueryRequest = {
+    addPoints?: number;
+    current?: string;
+    orderName?: string;
+    orderNo?: string;
+    pageSize?: string;
+    payType?: string;
+    productInfo?: string;
+    sortField?: string;
+    sortOrder?: string;
+    status?: string;
+    total?: number;
+  };
+
+  type ProductOrderVo = {
+    addPoints?: number;
+    codeUrl?: string;
+    createTime?: string;
+    description?: string;
+    expirationTime?: string;
+    formData?: string;
+    id?: string;
+    orderName?: string;
+    orderNo?: string;
+    payType?: string;
+    productId?: string;
+    productInfo?: ProductInfo;
+    productType?: string;
+    status?: string;
+    total?: string;
   };
 
   type SignatureVO = {

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import {Button, message, Modal} from "antd";
-// import {getCaptchaUsingGET,} from "@/services/qiApi-backend/userController";
+// import {getCaptchaUsingGet,} from "@/services/apiBackend/userController";
 import {LoginForm} from "@ant-design/pro-components";
 import {ProFormInstance} from "@ant-design/pro-form/lib";
 import {getModifyEmailCaptchaUsingPost} from "@/services/apiBackend/emailController";

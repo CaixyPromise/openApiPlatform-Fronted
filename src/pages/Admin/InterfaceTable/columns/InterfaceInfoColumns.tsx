@@ -394,7 +394,7 @@ const InterfaceInfoColumns: ProColumns<API.InterfaceInfo>[] = [
         key: 'avatarUrl',
     },
     // {
-    //     title: '扣除积分个数',
+    //     title: '扣除硬币个数',
     //     dataIndex: 'reduceScore',
     //     valueType: 'text',
     //     width: 80,

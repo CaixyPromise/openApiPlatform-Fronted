@@ -98,7 +98,7 @@ const Page: React.FC = () =>
                 // 使用 flushSync 同步更新 initialState
                 await flushSync(async () =>
                 {
-                    await setInitialState((s) => ({...s, currentUser: msg.data}));
+                    await setInitialState((s: any) => ({...s, currentUser: msg.data}));
                 });
                 // 重定向到主页或指定页面
                 const urlParams = new URL(window.location.href).searchParams;
