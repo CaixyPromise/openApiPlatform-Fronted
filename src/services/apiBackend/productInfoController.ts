@@ -35,7 +35,7 @@ export async function deleteProductInfoUsingPost(
 /** getProductInfoById GET /api/productInfo/get */
 export async function getProductInfoByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getProductInfoByIdUsingGetParams,
+  params: API.getProductInfoByIdUsingGETParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseProductInfo>('/api/productInfo/get', {
@@ -50,7 +50,7 @@ export async function getProductInfoByIdUsingGet(
 /** listProductInfoBySearchTextPage GET /api/productInfo/get/searchText */
 export async function listProductInfoBySearchTextPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listProductInfoBySearchTextPageUsingGetParams,
+  params: API.listProductInfoBySearchTextPageUsingGETParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponsePageProductInfo>('/api/productInfo/get/searchText', {
@@ -65,7 +65,7 @@ export async function listProductInfoBySearchTextPageUsingGet(
 /** listProductInfo GET /api/productInfo/list */
 export async function listProductInfoUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listProductInfoUsingGetParams,
+  params: API.listProductInfoUsingGETParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseListProductInfo>('/api/productInfo/list', {
@@ -80,7 +80,7 @@ export async function listProductInfoUsingGet(
 /** listProductInfoByPage GET /api/productInfo/list/page */
 export async function listProductInfoByPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listProductInfoByPageUsingGetParams,
+  params: API.listProductInfoByPageUsingGETParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponsePageProductInfo>('/api/productInfo/list/page', {

@@ -142,12 +142,12 @@ declare namespace API {
     uuid?: string;
   };
 
-  type closedProductOrderUsingPostParams = {
+  type closedProductOrderUsingPOSTParams = {
     /** orderNo */
     orderNo?: string;
   };
 
-  type deleteProductOrderUsingPostParams = {
+  type deleteProductOrderUsingPOSTParams = {
     /** id */
     id?: string;
   };
@@ -156,27 +156,27 @@ declare namespace API {
     id?: string;
   };
 
-  type getInterfaceInfoByIdUsingGetParams = {
+  type getInterfaceInfoByIdUsingGETParams = {
     /** id */
     id?: string;
   };
 
-  type getPostByIdUsingGetParams = {
+  type getPostByIdUsingGETParams = {
     /** id */
     id?: string;
   };
 
-  type getProductInfoByIdUsingGetParams = {
+  type getProductInfoByIdUsingGETParams = {
     /** id */
     id?: string;
   };
 
-  type getProductOrderByIdUsingGetParams = {
+  type getProductOrderByIdUsingGETParams = {
     /** id */
     id?: string;
   };
 
-  type getUserByIdUsingGetParams = {
+  type getUserByIdUsingGETParams = {
     /** id */
     id?: number;
   };
@@ -271,7 +271,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listInterfaceInfoByPageUsingGetParams = {
+  type listInterfaceInfoByPageUsingGETParams = {
     current?: string;
     description?: string;
     id?: string;
@@ -289,7 +289,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listInterfaceInfoUsingGetParams = {
+  type listInterfaceInfoUsingGETParams = {
     current?: string;
     description?: string;
     id?: string;
@@ -307,7 +307,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listPostByPageUsingGetParams = {
+  type listPostByPageUsingGETParams = {
     age?: number;
     contact?: string;
     content?: string;
@@ -324,7 +324,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listPostUsingGetParams = {
+  type listPostUsingGETParams = {
     age?: number;
     contact?: string;
     content?: string;
@@ -341,7 +341,7 @@ declare namespace API {
     userId?: string;
   };
 
-  type listProductInfoByPageUsingGetParams = {
+  type listProductInfoByPageUsingGETParams = {
     addPoints?: number;
     current?: string;
     description?: string;
@@ -353,7 +353,7 @@ declare namespace API {
     total?: number;
   };
 
-  type listProductInfoBySearchTextPageUsingGetParams = {
+  type listProductInfoBySearchTextPageUsingGETParams = {
     current?: string;
     pageSize?: string;
     searchText?: string;
@@ -361,7 +361,7 @@ declare namespace API {
     sortOrder?: string;
   };
 
-  type listProductInfoUsingGetParams = {
+  type listProductInfoUsingGETParams = {
     addPoints?: number;
     current?: string;
     description?: string;
@@ -373,7 +373,7 @@ declare namespace API {
     total?: number;
   };
 
-  type listProductOrderByPageUsingGetParams = {
+  type listProductOrderByPageUsingGETParams = {
     addPoints?: number;
     current?: string;
     orderName?: string;
@@ -387,7 +387,7 @@ declare namespace API {
     total?: number;
   };
 
-  type listUserByPageUsingGetParams = {
+  type listUserByPageUsingGETParams = {
     createTime?: string;
     current?: string;
     gender?: number;
@@ -402,7 +402,7 @@ declare namespace API {
     userRole?: string;
   };
 
-  type listUserUsingGetParams = {
+  type listUserUsingGETParams = {
     createTime?: string;
     current?: string;
     gender?: number;
@@ -744,6 +744,8 @@ declare namespace API {
   };
 
   type UserRegisterRequest = {
+    captcha?: string;
+    captchaId?: string;
     checkPassword?: string;
     userAccount?: string;
     userPassword?: string;

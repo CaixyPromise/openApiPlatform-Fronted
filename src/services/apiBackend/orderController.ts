@@ -5,7 +5,7 @@ import { request } from '@umijs/max';
 /** closedProductOrder POST /api/order/closed */
 export async function closedProductOrderUsingPost(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.closedProductOrderUsingPostParams,
+  params: API.closedProductOrderUsingPOSTParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseboolean>('/api/order/closed', {
@@ -35,7 +35,7 @@ export async function createOrderUsingPost(
 /** deleteProductOrder POST /api/order/delete */
 export async function deleteProductOrderUsingPost(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.deleteProductOrderUsingPostParams,
+  params: API.deleteProductOrderUsingPOSTParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseboolean>('/api/order/delete', {
@@ -50,7 +50,7 @@ export async function deleteProductOrderUsingPost(
 /** getProductOrderById GET /api/order/get */
 export async function getProductOrderByIdUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.getProductOrderByIdUsingGetParams,
+  params: API.getProductOrderByIdUsingGETParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseProductOrderVo>('/api/order/get', {
@@ -65,7 +65,7 @@ export async function getProductOrderByIdUsingGet(
 /** listProductOrderByPage GET /api/order/list/page */
 export async function listProductOrderByPageUsingGet(
   // 叠加生成的Param类型 (非body参数swagger默认没有生成对象)
-  params: API.listProductOrderByPageUsingGetParams,
+  params: API.listProductOrderByPageUsingGETParams,
   options?: { [key: string]: any },
 ) {
   return request<API.BaseResponseOrderVo>('/api/order/list/page', {
